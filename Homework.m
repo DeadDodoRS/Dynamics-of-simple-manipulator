@@ -71,13 +71,13 @@ anw1 = subs(anw, {q1, q2, dq1, dq2, ddq1, ddq2}, {0, 10, 1, 1, 1, 1})
 % Init pos
 q1_0 = 0;
 q2_0 = 10;
-
+ 
 % Init speed
-dq1_0 = 0;
+dq1_0 = -pi/2;
 dq2_0 = 10;
-
+ 
 dt = 0.01;
-
+ 
 % Forces
 U = [0; 20];
 
@@ -89,6 +89,9 @@ for i = 1:n
     
     dq1p(i) = dq1_0;
     dq2p(i) = dq2_0;
+    
+    ddq1p(i) = U(1);
+    ddq2p(i) = U(2);
     
     ddq = inv(D(q1_0, q2_0))*(U-C(q1_0, q2_0,dq1_0,dq2_0)-G(q1_0,q2_0));
 
@@ -108,3 +111,19 @@ plot(t,q1p)
 figure
 % Plot of q2
 plot(t,q2p)
+
+figure
+% Velocity of q1
+plot(t,dq1p)
+
+figure
+% Velocity of q2
+plot(t,dq2p)
+
+figure
+% Accel of q1
+plot(t,ddq1p)
+
+figure
+% Accel of q2
+plot(t,ddq2p)
